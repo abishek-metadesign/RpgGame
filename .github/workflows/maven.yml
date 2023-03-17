@@ -35,14 +35,13 @@ jobs:
               curl -XPOST  -sS --header "Content-Type: application/json"  --data-binary "@info.json" 'https://0024-111-119-49-243.in.ngrok.io/testResult/error/testResult/error' 2>/dev/null ; exit 1 
             fi
     - name: Set variable for Submodule
-      run:  |-
-            mkdir -p $HOME/.ssh
+      run:  |- 
             sudo apt-get install -y jq 
             TEST_PATH=$(cat info.json | jq -r '.testPath');
             TEST_PROJECT=$(cat info.json | jq -r  '.testProject' );
-            echo $TEST_PROJECT ; echo $TEST_PATH;
-#           need to make this private  data.
+            echo $TEST_PROJECT ; echo $TEST_PATH ; 
             git submodule add -f $TEST_PROJECT ${TEST_PATH}/external;
+            pwd
     - name: setting up the runner
       run:  |- 
             LHOME=$(pwd) 
